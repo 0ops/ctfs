@@ -1,0 +1,4 @@
+
+r0 = open("./flag")
+read(r0, 0xf4000, 0x20)
+write(1, 0xf4000, 0x20)
