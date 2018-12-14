@@ -1,0 +1,1 @@
+看数据段可知有5个bias层5个weight层，以及一个predictions数组，可以看出是用输入经过一个预设好的模型获得一个输出，和predictions比较，相符则正确，x一下root\_scope，可以看出这个模型是包括了5次forward过程，每次都对上一层的结果乘上一个矩阵（weight层），再加一个矢量（bias层），再进行一次sigmoid运算。完全可逆，对predictions做一下逆运算即可获得flag
