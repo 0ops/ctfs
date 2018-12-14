@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
+# author: seabreeze
 
 from random import choice
 from pwn import *
