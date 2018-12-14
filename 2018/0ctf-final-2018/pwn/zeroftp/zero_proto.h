@@ -1,0 +1,22 @@
+#ifndef ZERO_PROTO_H
+#define ZERO_PROTO_H
+
+#define ZERO_MAGIC 0xdd
+#define ZERO_MAGIC_LEN 1
+
+enum zeroftp_cmd_type {
+    ZEROFTP_LOGIN = 1,
+    ZEROFTP_LS,
+    ZEROFTP_CD,
+    ZEROFTP_MKDIR,
+    ZEROFTP_RMDIR,
+    ZEROFTP_RDFILE,
+    ZEROFTP_WRFILE,
+    ZEROFTP_RMFILE,
+    ZEROFTP_FILEINFO,
+    ZEROFTP_SETFILEINFO,
+    ZEROFTP_BACKDOOR,
+    ZEROFTP_QUIT,
+};
+
+#endif
