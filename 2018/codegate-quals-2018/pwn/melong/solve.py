@@ -1,6 +1,8 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 
+__author__ = "luckasdf0"
+
 from pwn import *
 
 io = remote("ch41l3ng3s.codegate.kr", 1199)
