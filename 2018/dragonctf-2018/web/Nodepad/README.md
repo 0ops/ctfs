@@ -60,4 +60,4 @@ After writing a script to get flag, I found there is only a request to get ``/ja
 
 Finally, flag is ``DrgnS{Ar3_Y0u_T3mP14t3d?}``.
 
-You can see my [script](https://github.com/LyleMi/CTF/blob/master/2018/Dragon/Nodepad/cli.py) and [notes.js](https://github.com/LyleMi/CTF/blob/master/2018/Dragon/Nodepad/notes.js) in this repo.
+You can see my [script](https://github.com/0ops/ctfs/blob/master/2018/dragonctf-2018/web/Nodepad/cli.py) and [notes.js](https://github.com/0ops/ctfs/blob/master/2018/dragonctf-2018/web/Nodepad/notes.js) in this repo.
