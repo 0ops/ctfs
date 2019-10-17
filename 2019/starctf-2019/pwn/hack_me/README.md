@@ -1,1 +1,0 @@
-The module does not check index of `pool` and there is a pointer behind it which point to `pool` (KO_BASE+0x3050). So it's easy to leak and control `pool` via that `pool` pointer (found in debugger). After controling `pool`, we have obtained an arbitrary read & write primitive. Just find and modify `cred` to achive the final privilege escalation. 

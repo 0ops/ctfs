@@ -1,4 +1,0 @@
-# Matr1x
-Sorry for the laziness of explaining how to de-obfuscate the binary. Anyway, deobf.py shows the dirty code that handles it.
-
-Skipping the explanation of de-obfuscation, we are glad to talk about the interesting behaviors of the program. There are six 3\*3 int matrices at 0x13020 and the program defines 18 diffenert operations on them. In fact, the matrices can be viewed as six planes of Rubik's Cube and 18 operations are its 18 different rotations. To check the state of the cube, it calculates the sums of some cubics on each plane and checks them. As the center cubics are always at the center, the vertex cubics are always at the vertex and the edge cubics are always on the edges, we can bruteforce the state of cube and calculate each part of the flag. Pick out those printable and reasonable parts and join them together, then we get what we want.
