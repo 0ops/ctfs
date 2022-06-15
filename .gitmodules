@@ -1,3 +1,9 @@
 [submodule "2019"]
 	path = 2019
-	url = git://github.com/0ops/ctfs-2019.git
+	url = https://github.com/0ops/ctfs-2019.git
+[submodule "2020"]
+	path = 2020
+	url = https://github.com/0ops/ctfs-2020.git
+[submodule "2021"]
+	path = 2021
+	url = https://github.com/0ops/ctfs-2021.git
